@@ -1,4 +1,5 @@
 import Image from "next/image";
+import MotionDiv from "./MotionDiv";
 
 export interface AnimeProp {
   id: string;
@@ -15,17 +16,23 @@ export interface AnimeProp {
 interface Prop {
   anime: AnimeProp;
   index: number;
+  calssName?: string;
 }
 
-function AnimeCard({ anime }: Prop) {
+function AnimeCard({ anime, calssName }: Prop) {
   return (
-    <div className="max-w-sm rounded relative w-full">
+    <MotionDiv>
       <div className="relative w-full h-[37vh]">
         <Image
-          src={anime.image.original}
+          src={
+            anime.image.original.startsWith("http")
+              ? anime.image.original
+              : `https://shikimori.one/${anime.image.original}`
+          }
           alt={anime.name}
-          fill
-          className="rounded-xl"
+          width={150}
+          height={150}
+          className="rounded-xl m-auto"
         />
       </div>
       <div className="py-4 flex flex-col gap-3">
@@ -41,30 +48,18 @@ function AnimeCard({ anime }: Prop) {
         </div>
         <div className="flex gap-4 items-center">
           <div className="flex flex-row gap-2 items-center">
-            <Image
-              src="./episodes.svg"
-              alt="episodes"
-              width={20}
-              height={20}
-              className="object-contain"
-            />
+            <Image src="/episodes.svg" alt="episodes" width={20} height={20} />
             <p className="text-base text-white font-bold">
               {anime.episodes || anime.episodes_aired}
             </p>
           </div>
           <div className="flex flex-row gap-2 items-center">
-            <Image
-              src="./star.svg"
-              alt="star"
-              width={18}
-              height={18}
-              className="object-contain"
-            />
+            <Image src="/star.svg" alt="star" width={18} height={18} />
             <p className="text-base font-bold text-[#FFAD49]">{anime.score}</p>
           </div>
         </div>
       </div>
-    </div>
+    </MotionDiv>
   );
 }
 
