@@ -36,7 +36,7 @@ function Home() {
 
   useEffect(() => {
     getAnimeByName();
-  }, [searchItem]);
+  }, [getAnimeByName]);
 
   return (
     <>

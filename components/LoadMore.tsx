@@ -18,7 +18,7 @@ function LoadMore({ filteredData }: any) {
         setPage(page + 1);
       });
     }
-  }, [inView, data]);
+  }, [inView, data, page]);
   return (
     <>
       <section
@@ -26,8 +26,8 @@ function LoadMore({ filteredData }: any) {
                     place-items-center sm:place-items-stretch"
       >
         {data.map((item: AnimeProp, index: number) => (
-          <Link href={`/anime/${item.id}`}>
-            <AnimeCard key={item.id} anime={item} index={index} />
+          <Link key={item.id || index} href={`/anime/${item.id}`}>
+            <AnimeCard anime={item} index={index} />
           </Link>
         ))}
       </section>
