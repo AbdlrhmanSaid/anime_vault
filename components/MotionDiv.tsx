@@ -17,7 +17,7 @@ const MotionDiv = ({ children }: { children: any }) => {
         ease: "easeInOut",
       }}
       viewport={{ once: true, amount: 0.2 }}
-      className="max-w-sm rounded relative w-full"
+      className=" rounded relative w-full"
     >
       {children}
     </motion.div>

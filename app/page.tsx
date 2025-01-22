@@ -10,6 +10,7 @@ function Home() {
   const [data, setData] = useState<AnimeProp[]>([]);
   const [filteredData, setFilteredData] = useState<AnimeProp[]>([]);
   const [searchItem, setSearchItem] = useState("");
+  const [isSearch, setIsSearch] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -24,11 +25,13 @@ function Home() {
   const getAnimeByName = async () => {
     if (searchItem === "") {
       setFilteredData(data);
+      setIsSearch(false);
       return;
     }
     if (searchItem.trim()) {
       const anime = await fetchAnimeItemByName({ name: searchItem });
       setFilteredData(anime || []);
+      setIsSearch(true);
     } else {
       setFilteredData(data);
     }
@@ -42,7 +45,7 @@ function Home() {
     <>
       <Hero />
       <main className="sm:p-16 py-16 px-8 flex flex-col gap-10">
-        <div className="m-auto w-[50%] ">
+        <div className="md:m-auto md:w-[50%]">
           <input
             type="search"
             placeholder="Search"
@@ -50,7 +53,9 @@ function Home() {
             onChange={(e) => setSearchItem(e.target.value)}
           />
         </div>
-        <h2 className="text-3xl text-white font-bold">Explore Anime</h2>
+        <h2 className="text-3xl text-white font-bold text-center md:text-left">
+          Explore Anime
+        </h2>
         <section
           className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 
                     place-items-center sm:place-items-stretch"
@@ -61,7 +66,7 @@ function Home() {
             </Link>
           ))}
         </section>
-        <LoadMore />
+        {isSearch ? "" : <LoadMore />}
       </main>
     </>
   );

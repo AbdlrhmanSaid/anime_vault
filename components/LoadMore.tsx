@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import { fetchAnmie } from "@/utils/actions";
 import AnimeCard, { AnimeProp } from "./AnimeCard";
 import Link from "next/link";
+import spinner from "../public/spinner.svg";
 
-function LoadMore({ filteredData }: any) {
+function LoadMore() {
   const { ref, inView } = useInView();
   const [data, setData] = useState<AnimeProp[]>([]);
   const [page, setPage] = useState(2);
@@ -34,7 +35,7 @@ function LoadMore({ filteredData }: any) {
       <section className="flex justify-center items-center w-full">
         <div ref={ref}>
           <Image
-            src="./spinner.svg"
+            src={spinner}
             alt="spinner"
             width={56}
             height={56}
